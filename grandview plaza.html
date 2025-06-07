@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrandView Plaza - Your Premier Shopping Destination</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#1e40af',secondary:'#60a5fa'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .hero-section {
+            background-image: url('https://readdy.ai/api/search-image?query=modern%2520luxury%2520shopping%2520mall%2520exterior%2520with%2520glass%2520facade%2520and%2520elegant%2520entrance%252C%2520beautiful%2520architecture%2520with%2520clean%2520lines%252C%2520surrounded%2520by%2520landscaped%2520gardens%2520and%2520water%2520features%252C%2520blue%2520sky%2520with%2520soft%2520clouds%252C%2520photorealistic%252C%2520high%2520quality&width=1920&height=1080&seq=mall1&orientation=landscape');
+            background-size: cover;
+            background-position: center;
+        }
+        .dining-section {
+            background-image: url('https://readdy.ai/api/search-image?query=elegant%2520food%2520court%2520in%2520a%2520modern%2520shopping%2520mall%2520with%2520diverse%2520restaurant%2520options%252C%2520stylish%2520seating%2520areas%252C%2520ambient%2520lighting%252C%2520clean%2520and%2520spacious%2520design%252C%2520people%2520enjoying%2520meals%252C%2520photorealistic%252C%2520high%2520quality&width=1920&height=600&seq=mall2&orientation=landscape');
+            background-size: cover;
+            background-position: center;
+        }
+        .entertainment-section {
+            background-image: url('https://readdy.ai/api/search-image?query=modern%2520entertainment%2520zone%2520in%2520a%2520luxury%2520mall%2520with%2520cinema%252C%2520arcade%2520games%252C%2520bowling%2520alley%252C%2520vibrant%2520colors%252C%2520dynamic%2520lighting%252C%2520families%2520and%2520young%2520people%2520enjoying%2520activities%252C%2520photorealistic%252C%2520high%2520quality&width=1920&height=600&seq=mall3&orientation=landscape');
+            background-size: cover;
+            background-position: center;
+        }
+        .events-section {
+            background-image: url('https://readdy.ai/api/search-image?query=elegant%2520event%2520space%2520in%2520a%2520premium%2520shopping%2520mall%2520with%2520stage%2520setup%252C%2520exhibition%2520area%252C%2520promotional%2520displays%252C%2520soft%2520lighting%252C%2520people%2520attending%2520a%2520fashion%2520show%2520or%2520product%2520launch%252C%2520photorealistic%252C%2520high%2520quality&width=1920&height=600&seq=mall4&orientation=landscape');
+            background-size: cover;
+            background-position: center;
+        }
+        .overlay {
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 99;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #1e40af;
+        }
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkmark {
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #cbd5e1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #1e40af;
+            border-color: #1e40af;
+        }
+        .checkmark:after {
+            content: "";
+            display: none;
+        }
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="fixed w-full z-50 transition-all duration-300" id="header">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center">
+                <span class="text-3xl font-['Pacifico'] text-white">GrandView</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-secondary font-medium transition">Home</a>
+                <a href="#stores" class="text-white hover:text-secondary font-medium transition">Stores</a>
+                <a href="#dining" class="text-white hover:text-secondary font-medium transition">Dining</a>
+                <a href="#entertainment" class="text-white hover:text-secondary font-medium transition">Entertainment</a>
+                <a href="#events" class="text-white hover:text-secondary font-medium transition">Events</a>
+                <a href="#contact" class="text-white hover:text-secondary font-medium transition">Contact</a>
+            </nav>
+            
+            <button class="md:hidden text-white w-10 h-10 flex items-center justify-center" id="mobile-menu-button">
+                <i class="ri-menu-line ri-2x"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white shadow-lg absolute w-full" id="mobile-menu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" class="text-gray-800 hover:text-primary font-medium py-2 transition">Home</a>
+                <a href="#stores" class="text-gray-800 hover:text-primary font-medium py-2 transition">Stores</a>
+                <a href="#dining" class="text-gray-800 hover:text-primary font-medium py-2 transition">Dining</a>
+                <a href="#entertainment" class="text-gray-800 hover:text-primary font-medium py-2 transition">Entertainment</a>
+                <a href="#events" class="text-gray-800 hover:text-primary font-medium py-2 transition">Events</a>
+                <a href="#contact" class="text-gray-800 hover:text-primary font-medium py-2 transition">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section h-screen flex items-center">
+        <div class="overlay w-full h-full absolute"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">Your Premier Shopping Destination</h1>
+                <p class="text-xl text-white mb-8">Experience the perfect blend of luxury shopping, fine dining, and entertainment at GrandView Plaza.</p>
+                <a href="#stores" class="bg-primary hover:bg-primary/90 text-white font-medium px-8 py-4 !rounded-button inline-block transition whitespace-nowrap">Explore Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stores Section -->
+    <section id="stores" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Discover Our Stores</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Explore a diverse collection of over 200 stores featuring the world's most beloved brands and exclusive boutiques.</p>
+            </div>
+            
+            <div class="mb-10">
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button class="category-filter active bg-primary text-white px-6 py-3 !rounded-button font-medium transition whitespace-nowrap" data-category="all">All Categories</button>
+                    <button class="category-filter bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 !rounded-button font-medium transition whitespace-nowrap" data-category="fashion">Fashion</button>
+                    <button class="category-filter bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 !rounded-button font-medium transition whitespace-nowrap" data-category="electronics">Electronics</button>
+                    <button class="category-filter bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 !rounded-button font-medium transition whitespace-nowrap" data-category="beauty">Beauty & Health</button>
+                    <button class="category-filter bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 !rounded-button font-medium transition whitespace-nowrap" data-category="home">Home & Decor</button>
+                    <button class="category-filter bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 !rounded-button font-medium transition whitespace-nowrap" data-category="kids">Kids & Toys</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Fashion Stores -->
+                <div class="store-card bg-white rounded shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl" data-category="fashion">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=luxury%2520fashion%2520store%2520interior%2520with%2520elegant%2520displays%2520of%2520high-end%2520clothing%2520and%2520accessories%252C%2520modern%2520minimalist%2520design%252C%2520soft%2520lighting%252C%2520mannequins%2520with%2520stylish%2520outfits%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=store1&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Elegance Boutique</h3>
+                        <p class="text-gray-600 mb-4">Premium fashion for the modern trendsetter. Featuring the latest collections from top designers.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Level 2, #208</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 9:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="store-card bg-white rounded shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl" data-category="fashion">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=sportswear%2520store%2520interior%2520with%2520athletic%2520clothing%2520and%2520footwear%2520displays%252C%2520dynamic%2520layout%252C%2520sports%2520equipment%2520section%252C%2520digital%2520screens%2520showing%2520athletes%252C%2520clean%2520and%2520energetic%2520atmosphere%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=store2&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">SportLife</h3>
+                        <p class="text-gray-600 mb-4">Your destination for premium athletic wear and sports equipment from global brands.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Level 1, #122</span>
+                            <span class="text-sm font-medium text-primary">9:00 AM - 10:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Electronics Stores -->
+                <div class="store-card bg-white rounded shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl" data-category="electronics">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=modern%2520electronics%2520store%2520with%2520sleek%2520displays%2520of%2520smartphones%252C%2520laptops%252C%2520and%2520gadgets%252C%2520interactive%2520demo%2520stations%252C%2520clean%2520white%2520interior%2520with%2520blue%2520accent%2520lighting%252C%2520customers%2520testing%2520devices%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=store3&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">TechHub</h3>
+                        <p class="text-gray-600 mb-4">Cutting-edge electronics and gadgets with expert advice and premium service.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Level 3, #315</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 9:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Beauty Stores -->
+                <div class="store-card bg-white rounded shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl" data-category="beauty">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=luxury%2520cosmetics%2520and%2520skincare%2520store%2520with%2520elegant%2520product%2520displays%252C%2520makeup%2520testing%2520stations%252C%2520soft%2520pink%2520and%2520white%2520interior%252C%2520beauty%2520consultants%2520helping%2520customers%252C%2520premium%2520atmosphere%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=store4&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Glow Beauty</h3>
+                        <p class="text-gray-600 mb-4">Premium skincare, cosmetics, and fragrances from luxury and niche brands.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Level 2, #245</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 9:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Home & Decor Stores -->
+                <div class="store-card bg-white rounded shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl" data-category="home">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=elegant%2520home%2520decor%2520store%2520with%2520stylish%2520furniture%2520displays%252C%2520decorative%2520items%252C%2520textiles%252C%2520and%2520lighting%2520fixtures%252C%2520warm%2520neutral%2520color%2520palette%252C%2520staged%2520room%2520setups%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=store5&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Home Elegance</h3>
+                        <p class="text-gray-600 mb-4">Sophisticated furniture and home accessories to elevate your living spaces.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Level 3, #330</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Kids & Toys Stores -->
+                <div class="store-card bg-white rounded shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl" data-category="kids">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=colorful%2520children%2527s%2520toy%2520store%2520with%2520interactive%2520play%2520areas%252C%2520educational%2520toys%2520section%252C%2520stuffed%2520animals%252C%2520building%2520blocks%252C%2520vibrant%2520displays%252C%2520children%2520playing%2520with%2520toys%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=store6&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Wonder Kids</h3>
+                        <p class="text-gray-600 mb-4">A magical world of toys, games, and children's fashion for all ages.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Level 1, #156</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 9:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More Fashion Stores -->
+                <div class="store-card bg-white rounded shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl" data-category="fashion">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=men%2527s%2520luxury%2520fashion%2520store%2520with%2520suits%252C%2520formal%2520wear%252C%2520and%2520accessories%252C%2520dark%2520wood%2520and%2520leather%2520interior%252C%2520tailoring%2520section%252C%2520elegant%2520displays%252C%2520sophisticated%2520atmosphere%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=store7&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Gentleman's Quarter</h3>
+                        <p class="text-gray-600 mb-4">Refined menswear and accessories for the modern gentleman.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Level 2, #225</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 9:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More Electronics Stores -->
+                <div class="store-card bg-white rounded shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl" data-category="electronics">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=premium%2520audio%2520store%2520with%2520high-end%2520speakers%252C%2520headphones%252C%2520and%2520sound%2520systems%2520on%2520display%252C%2520listening%2520stations%252C%2520acoustic%2520treatment%252C%2520warm%2520lighting%252C%2520customers%2520testing%2520equipment%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=store8&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Sound Perfection</h3>
+                        <p class="text-gray-600 mb-4">Premium audio equipment and accessories for audiophiles and music lovers.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">Level 3, #320</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 8:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-white border border-primary text-primary hover:bg-primary hover:text-white font-medium px-8 py-3 !rounded-button transition whitespace-nowrap">View All Stores</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dining Section -->
+    <section id="dining" class="dining-section py-20 relative">
+        <div class="overlay w-full h-full absolute"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Culinary Delights</h2>
+                <p class="text-xl text-white max-w-3xl mx-auto">From casual cafés to fine dining, explore a world of flavors at our diverse restaurants and eateries.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=elegant%2520italian%2520restaurant%2520interior%2520with%2520warm%2520lighting%252C%2520rustic%2520wooden%2520tables%252C%2520wine%2520displays%252C%2520pasta%2520and%2520pizza%2520dishes%2520being%2520served%252C%2520intimate%2520atmosphere%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=dining1&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Bella Italia</h3>
+                        <p class="text-gray-600 mb-4">Authentic Italian cuisine featuring hand-made pasta, wood-fired pizzas, and fine wines.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">Level 4, Food Court</span>
+                            <span class="text-sm font-medium text-primary">11:00 AM - 10:00 PM</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">Reserve a Table</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=modern%2520asian%2520fusion%2520restaurant%2520with%2520sleek%2520interior%252C%2520sushi%2520bar%252C%2520open%2520kitchen%252C%2520beautifully%2520plated%2520dishes%2520with%2520artistic%2520presentation%252C%2520ambient%2520lighting%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=dining2&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Fusion East</h3>
+                        <p class="text-gray-600 mb-4">Contemporary Asian fusion cuisine blending traditional flavors with modern techniques.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">Level 4, #405</span>
+                            <span class="text-sm font-medium text-primary">12:00 PM - 10:00 PM</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">Reserve a Table</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=upscale%2520coffee%2520shop%2520with%2520artisanal%2520pastries%252C%2520specialty%2520coffee%2520brewing%2520equipment%252C%2520comfortable%2520seating%2520areas%252C%2520warm%2520wood%2520and%2520brick%2520interior%252C%2520baristas%2520preparing%2520drinks%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=dining3&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Brew & Bake</h3>
+                        <p class="text-gray-600 mb-4">Specialty coffee, artisanal pastries, and light meals in a cozy, welcoming atmosphere.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">Level 2, #210</span>
+                            <span class="text-sm font-medium text-primary">8:00 AM - 8:00 PM</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">View Menu</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-white hover:bg-white/90 text-primary font-medium px-8 py-3 !rounded-button transition whitespace-nowrap">Explore All Dining Options</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entertainment Section -->
+    <section id="entertainment" class="entertainment-section py-20 relative">
+        <div class="overlay w-full h-full absolute"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Entertainment & Leisure</h2>
+                <p class="text-xl text-white max-w-3xl mx-auto">Enjoy a perfect day out with our premium entertainment options for visitors of all ages.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=luxury%2520cinema%2520interior%2520with%2520reclining%2520leather%2520seats%252C%2520state-of-the-art%2520projection%2520system%252C%2520ambient%2520lighting%252C%2520concession%2520stand%2520with%2520gourmet%2520options%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=ent1&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Premiere Cinemas</h3>
+                        <p class="text-gray-600 mb-4">Luxury movie experience with reclining seats, premium sound, and gourmet concessions.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">Level 5</span>
+                            <span class="text-sm font-medium text-primary">Opens at 10:00 AM</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">View Showtimes</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=modern%2520arcade%2520gaming%2520center%2520with%2520latest%2520video%2520games%252C%2520VR%2520experiences%252C%2520colorful%2520lighting%252C%2520teenagers%2520and%2520young%2520adults%2520enjoying%2520games%252C%2520high-tech%2520atmosphere%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=ent2&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Game Zone</h3>
+                        <p class="text-gray-600 mb-4">State-of-the-art arcade games, VR experiences, and interactive entertainment for all ages.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">Level 3, #350</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 11:00 PM</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">Buy Game Credits</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=colorful%2520children%2527s%2520play%2520area%2520with%2520soft%2520play%2520equipment%252C%2520climbing%2520structures%252C%2520ball%2520pit%252C%2520interactive%2520games%252C%2520bright%2520colors%252C%2520children%2520playing%2520safely%252C%2520parents%2520watching%2520from%2520seating%2520area%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=ent3&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Kids Adventure</h3>
+                        <p class="text-gray-600 mb-4">Safe and exciting play area for children with climbing structures, games, and educational activities.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-500">Level 1, #150</span>
+                            <span class="text-sm font-medium text-primary">10:00 AM - 8:00 PM</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">Book Play Session</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="events-section py-20 relative">
+        <div class="overlay w-full h-full absolute"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4">Upcoming Events</h2>
+                <p class="text-xl text-white max-w-3xl mx-auto">Join us for exciting events, exhibitions, and special promotions throughout the year.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=fashion%2520show%2520event%2520with%2520runway%252C%2520models%2520showcasing%2520designer%2520clothing%252C%2520audience%2520seated%2520around%2520catwalk%252C%2520professional%2520lighting%252C%2520photographers%252C%2520elegant%2520atmosphere%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=event1&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Fashion</span>
+                            <span class="text-sm font-medium text-gray-600">June 15, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Summer Fashion Show</h3>
+                        <p class="text-gray-600 mb-4">Exclusive preview of the latest summer collections from top designers. Includes VIP access and refreshments.</p>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">Register Now</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=culinary%2520workshop%2520with%2520professional%2520chef%2520demonstrating%2520cooking%2520techniques%252C%2520participants%2520at%2520cooking%2520stations%252C%2520ingredients%2520laid%2520out%252C%2520modern%2520kitchen%2520setup%252C%2520people%2520learning%2520and%2520enjoying%2520food%2520preparation%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=event2&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Culinary</span>
+                            <span class="text-sm font-medium text-gray-600">June 22, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Gourmet Cooking Workshop</h3>
+                        <p class="text-gray-600 mb-4">Learn culinary secrets from celebrity chef Michael Reynolds in this interactive cooking class.</p>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">Register Now</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded shadow-lg overflow-hidden">
+                    <div class="h-48 bg-gray-200" style="background-image: url('https://readdy.ai/api/search-image?query=children%2527s%2520art%2520workshop%2520with%2520kids%2520painting%2520and%2520creating%2520crafts%252C%2520colorful%2520art%2520supplies%252C%2520instructors%2520helping%2520children%252C%2520displayed%2520artwork%252C%2520bright%2520and%2520creative%2520atmosphere%252C%2520photorealistic%252C%2520high%2520quality&width=600&height=400&seq=event3&orientation=landscape'); background-size: cover; background-position: center;"></div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">Kids</span>
+                            <span class="text-sm font-medium text-gray-600">June 29, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Children's Art Festival</h3>
+                        <p class="text-gray-600 mb-4">A day of creative fun for kids with art workshops, face painting, and interactive performances.</p>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 !rounded-button transition whitespace-nowrap">Register Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-white hover:bg-white/90 text-primary font-medium px-8 py-3 !rounded-button transition whitespace-nowrap">View All Events</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Visit Us</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">We're conveniently located in the heart of the city. Come experience GrandView Plaza today.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <div class="rounded overflow-hidden h-96 mb-6" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png'); background-size: cover; background-position: center;"></div>
+                    <a href="https://maps.google.com" target="_blank" class="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-medium px-6 py-3 !rounded-button transition whitespace-nowrap mb-8">
+                        <i class="ri-map-pin-line ri-lg mr-2"></i> View on Map
+                    </a>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Mall Information</h3>
+                        <div class="flex items-start mb-4">
+                            <div class="w-10 h-10 flex items-center justify-center text-primary mr-4">
+                                <i class="ri-map-pin-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-800 font-medium">Address</p>
+                                <p class="text-gray-600">123 Shopping Avenue, Downtown District, Metro City, MC 10001</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start mb-4">
+                            <div class="w-10 h-10 flex items-center justify-center text-primary mr-4">
+                                <i class="ri-time-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-800 font-medium">Opening Hours</p>
+                                <p class="text-gray-600">Monday - Saturday: 10:00 AM - 9:00 PM</p>
+                                <p class="text-gray-600">Sunday: 11:00 AM - 7:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 flex items-center justify-center text-primary mr-4">
+                                <i class="ri-phone-line ri-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-800 font-medium">Contact</p>
+                                <p class="text-gray-600">Phone: (555) 123-4567</p>
+                                <p class="text-gray-600">Email: info@grandviewplaza.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary" placeholder="John Smith">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary" placeholder="How can we help you?">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary" placeholder="Your message here..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="custom-checkbox">
+                                <input type="checkbox">
+                                <span class="checkmark mr-2"></span>
+                                <span class="text-sm text-gray-700">I agree to receive promotional emails and updates from GrandView Plaza</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="bg-primary hover:bg-primary/90 text-white font-medium px-8 py-3 !rounded-button transition whitespace-nowrap">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="#" class="inline-block mb-6">
+                        <span class="text-3xl font-['Pacifico'] text-white">GrandView</span>
+                    </a>
+                    <p class="text-gray-400 mb-6">Your premier shopping destination offering a perfect blend of luxury retail, dining, and entertainment experiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="ri-twitter-x-line"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="ri-youtube-line"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#stores" class="text-gray-400 hover:text-white transition">Stores Directory</a></li>
+                        <li><a href="#dining" class="text-gray-400 hover:text-white transition">Dining</a></li>
+                        <li><a href="#entertainment" class="text-gray-400 hover:text-white transition">Entertainment</a></li>
+                        <li><a href="#events" class="text-gray-400 hover:text-white transition">Events</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Customer Service</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Mall Hours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Parking Information</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Lost & Found</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Gift Cards</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Accessibility</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to receive updates on events, promotions, and new store openings.</p>
+                    <form class="mb-4">
+                        <div class="flex">
+                            <input type="email" placeholder="Your email address" class="flex-grow px-4 py-2 rounded-l border-none text-gray-900">
+                            <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-r border-none whitespace-nowrap">Subscribe</button>
+                        </div>
+                    </form>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-400">We Accept:</span>
+                        <div class="flex space-x-2">
+                            <i class="ri-visa-fill ri-lg"></i>
+                            <i class="ri-mastercard-fill ri-lg"></i>
+                            <i class="ri-paypal-fill ri-lg"></i>
+                            <i class="ri-apple-fill ri-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 GrandView Plaza. All rights reserved.</p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/1234567890" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white rounded-full p-4 shadow-lg z-50 hover:bg-[#128C7E] transition-all">
+        <i class="ri-whatsapp-line ri-2x"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top bg-primary hover:bg-primary/90 text-white rounded-full p-3 shadow-lg transition-all">
+        <i class="ri-arrow-up-line ri-lg"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script id="header-scroll">
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-white', 'shadow-md');
+                    header.classList.remove('bg-transparent');
+                    
+                    // Change text color when header has background
+                    const navLinks = header.querySelectorAll('nav a');
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-white', 'hover:text-secondary');
+                        link.classList.add('text-gray-800', 'hover:text-primary');
+                    });
+                    
+                    // Change logo color
+                    const logo = header.querySelector('.font-[\'Pacifico\']');
+                    logo.classList.remove('text-white');
+                    logo.classList.add('text-primary');
+                    
+                    // Change mobile menu button color
+                    const menuButton = header.querySelector('#mobile-menu-button');
+                    menuButton.classList.remove('text-white');
+                    menuButton.classList.add('text-gray-800');
+                } else {
+                    header.classList.remove('bg-white', 'shadow-md');
+                    header.classList.add('bg-transparent');
+                    
+                    // Revert text color when header is transparent
+                    const navLinks = header.querySelectorAll('nav a');
+                    navLinks.forEach(link => {
+                        link.classList.remove('text-gray-800', 'hover:text-primary');
+                        link.classList.add('text-white', 'hover:text-secondary');
+                    });
+                    
+                    // Revert logo color
+                    const logo = header.querySelector('.font-[\'Pacifico\']');
+                    logo.classList.remove('text-primary');
+                    logo.classList.add('text-white');
+                    
+                    // Revert mobile menu button color
+                    const menuButton = header.querySelector('#mobile-menu-button');
+                    menuButton.classList.remove('text-gray-800');
+                    menuButton.classList.add('text-white');
+                }
+            });
+            
+            // Trigger scroll event on page load to set initial state
+            window.dispatchEvent(new Event('scroll'));
+        });
+    </script>
+    
+    <script id="mobile-menu-toggle">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                
+                // Change icon based on menu state
+                const icon = mobileMenuButton.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('ri-close-line');
+                    icon.classList.add('ri-menu-line');
+                } else {
+                    icon.classList.remove('ri-menu-line');
+                    icon.classList.add('ri-close-line');
+                }
+            });
+            
+            // Close mobile menu when clicking a link
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    const icon = mobileMenuButton.querySelector('i');
+                    icon.classList.remove('ri-close-line');
+                    icon.classList.add('ri-menu-line');
+                });
+            });
+        });
+    </script>
+    
+    <script id="category-filter">
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            const storeCards = document.querySelectorAll('.store-card');
+            
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    // Remove active class from all filters
+                    categoryFilters.forEach(f => {
+                        f.classList.remove('active', 'bg-primary', 'text-white');
+                        f.classList.add('bg-gray-100', 'hover:bg-gray-200', 'text-gray-800');
+                    });
+                    
+                    // Add active class to clicked filter
+                    this.classList.add('active', 'bg-primary', 'text-white');
+                    this.classList.remove('bg-gray-100', 'hover:bg-gray-200', 'text-gray-800');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // Show/hide store cards based on category
+                    storeCards.forEach(card => {
+                        if (category === 'all' || card.getAttribute('data-category') === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    
+    <script id="back-to-top">
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopButton.style.display = 'block';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    
+    <script id="form-validation">
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.querySelector('form');
+            
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const subjectInput = document.getElementById('subject');
+                const messageInput = document.getElementById('message');
+                
+                let isValid = true;
+                
+                // Simple validation
+                if (!nameInput.value.trim()) {
+                    nameInput.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    nameInput.classList.remove('border-red-500');
+                }
+                
+                if (!emailInput.value.trim() || !emailInput.value.includes('@')) {
+                    emailInput.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    emailInput.classList.remove('border-red-500');
+                }
+                
+                if (!subjectInput.value.trim()) {
+                    subjectInput.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    subjectInput.classList.remove('border-red-500');
+                }
+                
+                if (!messageInput.value.trim()) {
+                    messageInput.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    messageInput.classList.remove('border-red-500');
+                }
+                
+                if (isValid) {
+                    // Form is valid, would normally submit to server
+                    alert('Thank you for your message! We will get back to you soon.');
+                    contactForm.reset();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
